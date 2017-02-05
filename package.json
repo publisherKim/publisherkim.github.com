@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "npm start": ""
+    "start": "webpack src/app.js bundle.js --progress --watch"
   },
   "repository": {
     "type": "git",
@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/publisherKim/publisherkim.github.com/issues"
   },
-  "homepage": "https://github.com/publisherKim/publisherkim.github.com#readme"
+  "homepage": "https://github.com/publisherKim/publisherkim.github.com#readme",
+  "devDependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.1"
+  }
 }
