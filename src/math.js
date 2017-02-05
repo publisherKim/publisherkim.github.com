@@ -1,4 +1,3 @@
-
 var math = {
     max: function(){},
     min: function(){}
