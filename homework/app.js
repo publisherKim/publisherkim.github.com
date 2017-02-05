@@ -24,7 +24,6 @@ $$.ajax('https://raw.githubusercontent.com/suhokim2/suhokim2.github.com/master/d
 
 
 $('#btn').on('click', function(e){
-    console.log(typeof data, data, data.fruits);
     var html = data.fruits.map( function(fruit){
         var rows = ['<tr>'];
         for(var key in fruit){
