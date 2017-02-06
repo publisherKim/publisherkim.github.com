@@ -17,14 +17,19 @@ function ajax(url, callback){
     xhr.send();
 }
 var data = '';
+var tableData = '';
 $$.ajax('https://raw.githubusercontent.com/suhokim2/suhokim2.github.com/master/data.json', function(response){
     data = JSON.parse(response);
     return data;
 });
 
+function tableInit(){
+    $('table').remove();
+}
 
-$('#btn').on('click', function(e){
-    var html = data.fruits.map( function(fruit){
+function htmlTable(tableData){
+    $('input').val('');
+    var html = tableData.map( function(fruit){
         var rows = ['<tr>'];
         for(var key in fruit){
             if(fruit.hasOwnProperty(key)){
@@ -36,5 +41,20 @@ $('#btn').on('click', function(e){
         return rows.join('');
     }).join('');
     $(document.body).append('<table>'+ html +'</table>');
+}
+
+$('#btn').on('click', function(e){
+    tableInit();
+    tableData = data.fruits;
+    var html = htmlTable(tableData);
+    
 });
 
+$('#filter').on('click', function(e){
+    var price = $('input').val();
+    tableInit();
+    tableData = data.fruits.filter( function(fruit){
+        return fruit.price >= price;
+    });
+    htmlTable(tableData);
+});
