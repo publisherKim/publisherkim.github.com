@@ -27,9 +27,7 @@ ajax('../data.json', function(response){
         $('table').toggle();
 
         $('[data-view="tdlist"]').html(tdList({
-            tdList: response.fruits,
-
-
+            tdList: response.fruits
         }));
     });
 });
