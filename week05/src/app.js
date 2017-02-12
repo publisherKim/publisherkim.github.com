@@ -21,11 +21,11 @@ $('[data-view="list"]').html(tplList({
 }));
 
 // data ajax
-ajax('../data.json', function(response){
+ajax('./data.json', function(response){
 
     $('#btn_table_show').on('click', function(){
         $('table').toggle();
-
+        console.log(response);
         $('[data-view="tdlist"]').html(tdList({
             tdList: response.fruits
         }));
