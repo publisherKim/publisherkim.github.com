@@ -21,7 +21,7 @@ $('[data-view="list"]').html(tplList({
 }));
 
 // data ajax
-ajax('../data.json', function(response){
+ajax('/week05/data.json', function(response){
 
     $('#btn_table_show').on('click', function(){
         $('table').toggle();
