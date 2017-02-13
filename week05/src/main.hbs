@@ -10,19 +10,36 @@
         <button id="btn_table_show" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
             Button
         </button>
+        <button id="btn_weather_show" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            ForeCast
+        </button>
     </main>
-    <table class="mdl-data-table mdl-js-data-table">
+    <table id="fruit_table"class="mdl-data-table mdl-js-data-table">
+        <thead>
+            <tr>
+                <th class="mdl-data-table__cell--non-numeric">Name</th>
+                <th>quantity</th>
+                <th>unit price</th>
+            </tr>
+        </thead>
+        <tfoot>
+            {{totalPrice}}
+            <tr>
+                <td>합계</td>
+                <td colspan="2">{{total}}</td>
+            </tr>
+        </tfoot>
+        <tbody data-view="tdlist">
+        </tbody>
+    </table>
+    <table id="weather_table"class="mdl-data-table mdl-js-data-table">
         <thead>
         <tr>
-            <th class="mdl-data-table__cell--non-numeric">Name</th>
-            <th>quantity</th>
-            <th>unit price</th>
+            <th class="mdl-data-table__cell--non-numeric">일자</th>
+            <th>온도</th>
         </tr>
         </thead>
-        <tfoot data-view="tflist">
-            
-        </tfoot>
-        <tbody  data-view="tdlist">
+        <tbody data-view="weatherlist">
         </tbody>
     </table>
 </div>

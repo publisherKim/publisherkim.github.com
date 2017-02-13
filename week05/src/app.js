@@ -21,14 +21,44 @@ $('[data-view="list"]').html(tplList({
 }));
 
 // data ajax
+// ajax 순서를 클릭했을때 탔어야 했는데 잘못한것 같은데...
 ajax('../data.json', function(response){
+    let data = response.fruits;
     $('#btn_table_show').on('click', function(){
-        $('table').toggle();        
+        $('#weather_table').css('display','none');
+        $('#fruit_table').toggle();
 
-        $('[data-view="tdlist"]').html(tdList({
-            tdList: response.fruits
+        // $('[data-view="tdlist"]').html(tdList({
+        //     tdList: data
+        // }));
+
+        let price = data.map(function(item){
+            return item.price;
+        }).reduce(function(preV, nextV){
+            return preV + nextV;
+        });
+        // 자바스크립트로 회귀한다.
+        $('tfoot').html('<tr><td>합계</td><td colspan="2">'+ price +'</td></tr>');
+    });
+});
+
+var weatherUrl = 'http://api.openweathermap.org/data/2.5/forecast/daily?q=seoul&mode=json&units=metric&cnt=7&apikey=8d554a626fc5d01d77812b612a6de257';
+
+document.getElementById('btn_weather_show').addEventListener('click', () => {
+    ajax(weatherUrl, response => {
+        let data = response.list;
+        console.log(data);
+        $('#fruit_table').css('display','none');
+        $('#weather_table').toggle();
+
+        $('[data-view="weatherlist"]').html(weatherList({
+            weatherList: data
         }));
     });
 });
+
+
+
+
 
 
