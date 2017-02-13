@@ -1,3 +1,4 @@
+import weatherList from './weatherlist.hbs';
 import tdList from './tdlist.hbs';
 import tplList from './list.hbs';
 import tplMain from './main.hbs';
@@ -28,9 +29,9 @@ ajax('../data.json', function(response){
         $('#weather_table').css('display','none');
         $('#fruit_table').toggle();
 
-        // $('[data-view="tdlist"]').html(tdList({
-        //     tdList: data
-        // }));
+        $('[data-view="tdlist"]').html(tdList({
+            tdList: data
+        }));
 
         let price = data.map(function(item){
             return item.price;
@@ -47,6 +48,10 @@ var weatherUrl = 'http://api.openweathermap.org/data/2.5/forecast/daily?q=seoul&
 document.getElementById('btn_weather_show').addEventListener('click', () => {
     ajax(weatherUrl, response => {
         let data = response.list;
+        console.log(data);
+        data = data.map(function(item){
+            return {dt : new Date(item.dt), temp : item.temp.day};
+        });
         console.log(data);
         $('#fruit_table').css('display','none');
         $('#weather_table').toggle();
