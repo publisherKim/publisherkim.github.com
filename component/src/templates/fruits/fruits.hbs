@@ -1,0 +1,29 @@
+<table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+    <thead>
+    <tr>
+        <th class="mdl-data-table__cell--non-numeric">Material</th>
+        <th>Quantity</th>
+        <th>Unit price</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each fruits}}
+        {{#when name 'notEquals' '사과'}}
+            <tr>
+                <td class="mdl-data-table__cell--non-numeric">{{name}}</td>
+                <td>{{quantity}}</td>
+                <td>{{currency price unit}}{{unit}}</td>
+                <!-- templete 에서 받는건 모듈의 파일명 함수 자체 unit.keyName은 쓸수가 없음... -->
+            </tr>
+        {{else}}
+            <tr style="color:red">
+                <td class="mdl-data-table__cell--non-numeric">{{name}}</td>
+                <td>{{quantity}}</td>
+                <td>{{currency price}}</td>
+            </tr>
+        {{/when}}
+    {{/each}}
+    <tr><td>합계</td><td colspan="2">{{currency total}}</td></tr>
+    </tbody>
+</table>
+
