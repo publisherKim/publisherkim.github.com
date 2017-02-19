@@ -1,0 +1,16 @@
+<table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+    <thead>
+    <tr>
+        <th class="mdl-data-table__cell--non-numeric">일자</th>
+        <th>온도</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each weather}}
+        <tr>
+            <td class="mdl-data-table__cell--non-numeric">{{date}}</td>
+            <td>{{temp}}도</td>
+        </tr>
+    {{/each}}
+    </tbody>
+</table>

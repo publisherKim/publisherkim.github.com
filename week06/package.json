@@ -1,0 +1,34 @@
+{
+  "name": "suhokim2.github.com",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack -p",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server -d --hot --host 127.0.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/publisherKim/publisherkim.github.com.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/publisherKim/publisherkim.github.com/issues"
+  },
+  "homepage": "https://github.com/publisherKim/publisherkim.github.com#readme",
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-es2016": "^6.22.0",
+    "bootstrap": "^3.3.7",
+    "handlebars": "^4.0.6",
+    "handlebars-loader": "^1.4.0",
+    "jquery": "^3.1.1",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.3.0"
+  }
+}
