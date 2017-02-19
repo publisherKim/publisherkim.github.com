@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 27);
+/******/ 	return __webpack_require__(__webpack_require__.s = 34);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -201,6 +201,15 @@ function appendContextPath(contextPath, id) {
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
+// Create a simple path alias to allow browserify to resolve
+// the runtime on a supported path.
+module.exports = __webpack_require__(18)['default'];
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 
@@ -256,16 +265,39 @@ module.exports = exports['default'];
 
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-// Create a simple path alias to allow browserify to resolve
-// the runtime on a supported path.
-module.exports = __webpack_require__(11)['default'];
+"use strict";
 
+
+module.exports = function (val) {
+    var unit = {
+        'kor': ' won',
+        'usa': ' dollar',
+        'jpn': ' yen'
+    };
+    return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + unit.kor;
+};
 
 /***/ }),
-/* 3 */
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function () {
+    var unit = {
+        'kor': ' won',
+        'usa': ' dollar',
+        'jpn': ' yen'
+    };
+    return unit.usa;
+};
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -279,15 +311,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 var _utils = __webpack_require__(0);
 
-var _exception = __webpack_require__(1);
+var _exception = __webpack_require__(2);
 
 var _exception2 = _interopRequireDefault(_exception);
 
-var _helpers = __webpack_require__(14);
+var _helpers = __webpack_require__(21);
 
-var _decorators = __webpack_require__(12);
+var _decorators = __webpack_require__(19);
 
-var _logger = __webpack_require__(22);
+var _logger = __webpack_require__(29);
 
 var _logger2 = _interopRequireDefault(_logger);
 
@@ -376,7 +408,7 @@ exports.logger = _logger2['default'];
 
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -401,10 +433,52 @@ exports.default = function (url, callback) {
 };
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Handlebars = __webpack_require__(2);
+var Handlebars = __webpack_require__(1);
+function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj); }
+module.exports = (Handlebars["default"] || Handlebars).template({"1":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return ((stack1 = __default(__webpack_require__(14)).call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.name : depth0),"notEquals","사과",{"name":"when","hash":{},"fn":container.program(2, data, 0),"inverse":container.program(4, data, 0),"data":data})) != null ? stack1 : "");
+},"2":function(container,depth0,helpers,partials,data) {
+    var alias1=container.lambda, alias2=container.escapeExpression, alias3=depth0 != null ? depth0 : {};
+
+  return "            <tr>\r\n                <td class=\"mdl-data-table__cell--non-numeric\">"
+    + alias2(alias1((depth0 != null ? depth0.name : depth0), depth0))
+    + "</td>\r\n                <td>"
+    + alias2(alias1((depth0 != null ? depth0.quantity : depth0), depth0))
+    + "</td>\r\n                <td>"
+    + alias2(__default(__webpack_require__(3)).call(alias3,(depth0 != null ? depth0.price : depth0),(depth0 != null ? depth0.unit : depth0),{"name":"currency","hash":{},"data":data}))
+    + alias2(__default(__webpack_require__(4)).call(alias3,{"name":"unit","hash":{},"data":data}))
+    + "</td>\r\n                <!-- templete 에서 받는건 모듈의 파일명 함수 자체 unit.keyName은 쓸수가 없음... -->\r\n            </tr>\r\n";
+},"4":function(container,depth0,helpers,partials,data) {
+    var alias1=container.lambda, alias2=container.escapeExpression, alias3=depth0 != null ? depth0 : {};
+
+  return "            <tr style=\"color:red\">\r\n                <td class=\"mdl-data-table__cell--non-numeric\">"
+    + alias2(alias1((depth0 != null ? depth0.name : depth0), depth0))
+    + "</td>\r\n                <td>"
+    + alias2(alias1((depth0 != null ? depth0.quantity : depth0), depth0))
+    + "</td>\r\n                <td>"
+    + alias2(__default(__webpack_require__(13)).call(alias3,(depth0 != null ? depth0.price : depth0),{"name":"numberFormat","hash":{},"data":data}))
+    + alias2(__default(__webpack_require__(4)).call(alias3,{"name":"unit","hash":{},"data":data}))
+    + "</td>\r\n            </tr>\r\n";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, alias1=depth0 != null ? depth0 : {};
+
+  return "<table class=\"mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp\">\r\n    <thead>\r\n    <tr>\r\n        <th class=\"mdl-data-table__cell--non-numeric\">Material</th>\r\n        <th>Quantity</th>\r\n        <th>Unit price</th>\r\n    </tr>\r\n    </thead>\r\n    <tbody>\r\n"
+    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.fruits : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "    <tr><td>합계</td><td colspan=\"2\">"
+    + container.escapeExpression(__default(__webpack_require__(3)).call(alias1,(depth0 != null ? depth0.total : depth0),{"name":"currency","hash":{},"data":data}))
+    + "</td></tr>\r\n    </tbody>\r\n</table>\r\n\r\n";
+},"useData":true});
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Handlebars = __webpack_require__(1);
 function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj); }
 module.exports = (Handlebars["default"] || Handlebars).template({"1":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
@@ -413,79 +487,54 @@ module.exports = (Handlebars["default"] || Handlebars).template({"1":function(co
     + alias4(((helper = (helper = helpers.href || (depth0 != null ? depth0.href : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"href","hash":{},"data":data}) : helper)))
     + "\">"
     + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
-    + "</a>\n";
+    + "</a>\r\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return "\n"
+  return "\r\n"
     + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.list : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
 },"useData":true});
 
 /***/ }),
-/* 6 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Handlebars = __webpack_require__(2);
+var Handlebars = __webpack_require__(1);
 function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj); }
 module.exports = (Handlebars["default"] || Handlebars).template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, alias1=container.lambda, alias2=container.escapeExpression;
+    var stack1;
 
-  return "\n<div class=\"demo-layout-transparent mdl-layout mdl-js-layout\">\n"
-    + ((stack1 = container.invokePartial(__webpack_require__(10),depth0,{"name":"header","data":data,"indent":"    ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + "    <div class=\"mdl-layout__drawer\">\n        <span class=\"mdl-layout-title\">Title</span>\n        <nav class=\"mdl-navigation\" data-view=\"list\">\n        </nav>\n    </div>\n    <main class=\"mdl-layout__content\">\n        <button id=\"btn_table_show\" class=\"mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent\">\n            Button\n        </button>\n        <button id=\"btn_weather_show\" class=\"mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent\">\n            ForeCast\n        </button>\n    </main>\n    <table id=\"fruit_table\"class=\"mdl-data-table mdl-js-data-table\">\n        <thead>\n            <tr>\n                <th class=\"mdl-data-table__cell--non-numeric\">Name</th>\n                <th>quantity</th>\n                <th>unit price</th>\n            </tr>\n        </thead>\n        <tfoot>\n            "
-    + alias2(alias1((depth0 != null ? depth0.totalPrice : depth0), depth0))
-    + "\n            <tr>\n                <td>합계</td>\n                <td colspan=\"2\">"
-    + alias2(alias1((depth0 != null ? depth0.total : depth0), depth0))
-    + "</td>\n            </tr>\n        </tfoot>\n        <tbody data-view=\"tdlist\">\n        </tbody>\n    </table>\n    <table id=\"weather_table\"class=\"mdl-data-table mdl-js-data-table\">\n        <thead>\n        <tr>\n            <th class=\"mdl-data-table__cell--non-numeric\">일자</th>\n            <th>온도</th>\n        </tr>\n        </thead>\n        <tbody data-view=\"weatherlist\">\n        </tbody>\n    </table>\n</div>";
+  return "\r\n<div class=\"demo-layout-transparent mdl-layout mdl-js-layout\">\r\n"
+    + ((stack1 = container.invokePartial(__webpack_require__(15),depth0,{"name":"header","data":data,"indent":"    ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + ((stack1 = container.invokePartial(__webpack_require__(17),depth0,{"name":"mdl-layout__drawer","data":data,"indent":"    ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + ((stack1 = container.invokePartial(__webpack_require__(16),depth0,{"name":"mdl-layout__content","data":data,"indent":"    ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + "</div>";
 },"usePartial":true,"useData":true});
 
 /***/ }),
-/* 7 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Handlebars = __webpack_require__(2);
+var Handlebars = __webpack_require__(1);
 function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj); }
 module.exports = (Handlebars["default"] || Handlebars).template({"1":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
-  return "<tr>\n    <td class=\"mdl-data-table__cell--non-numeric\">"
-    + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
-    + "</td>\n    <td>"
-    + alias4(((helper = (helper = helpers.quantity || (depth0 != null ? depth0.quantity : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"quantity","hash":{},"data":data}) : helper)))
-    + "</td>\n    <td>"
-    + alias4(((helper = (helper = helpers.price || (depth0 != null ? depth0.price : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"price","hash":{},"data":data}) : helper)))
-    + "</td>\n</tr>\n";
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1;
-
-  return "\n"
-    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.tdList : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "\n";
-},"useData":true});
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Handlebars = __webpack_require__(2);
-function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj); }
-module.exports = (Handlebars["default"] || Handlebars).template({"1":function(container,depth0,helpers,partials,data) {
-    var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
-
-  return "<tr>\n    <td class=\"mdl-data-table__cell--non-numeric\">"
-    + alias4(((helper = (helper = helpers.dt || (depth0 != null ? depth0.dt : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"dt","hash":{},"data":data}) : helper)))
-    + "</td>\n    <td>"
+  return "        <tr>\r\n            <td class=\"mdl-data-table__cell--non-numeric\">"
+    + alias4(((helper = (helper = helpers.date || (depth0 != null ? depth0.date : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"date","hash":{},"data":data}) : helper)))
+    + "</td>\r\n            <td>"
     + alias4(((helper = (helper = helpers.temp || (depth0 != null ? depth0.temp : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"temp","hash":{},"data":data}) : helper)))
-    + "도</td>\n</tr>\n";
+    + "도</td>\r\n        </tr>\r\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return "\n"
-    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.weatherList : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+  return "<table id=\"weather_table\" class=\"mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp\">\r\n    <thead>\r\n    <tr>\r\n        <th class=\"mdl-data-table__cell--non-numeric\">일자</th>\r\n        <th>온도</th>\r\n    </tr>\r\n    </thead>\r\n    <tbody>\r\n"
+    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.weather : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "    </tbody>\r\n</table>";
 },"useData":true});
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10712,17 +10761,109 @@ return jQuery;
 
 
 /***/ }),
-/* 10 */
+/* 12 */
+/***/ (function(module, exports) {
+
+module.exports = [
+	{
+		"href": "http://www.naver.com",
+		"name": "naver"
+	},
+	{
+		"href": "http://www.daum.net",
+		"name": "daum"
+	}
+];
+
+/***/ }),
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Handlebars = __webpack_require__(2);
+"use strict";
+
+
+module.exports = function (val) {
+    return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var OPERATORS = {
+    equals: function equals(left, right) {
+        return left === right;
+    },
+    notEquals: function notEquals(left, right) {
+        return left !== right;
+    },
+    identical: function identical(left, right) {
+        return left === right;
+    },
+    equalsAsString: function equalsAsString(left, right) {
+        return this.identical('' + left, '' + right);
+    },
+    lessThanOrEquals: function lessThanOrEquals(left, right) {
+        return left <= right;
+    },
+    greaterThan: function greaterThan(left, right) {
+        return left > right;
+    },
+    greaterThanOrEquals: function greaterThanOrEquals(left, right) {
+        return left >= right;
+    },
+    and: function and(left, right) {
+        return !!(left && right);
+    },
+    or: function or(left, right) {
+        return !!(left || right);
+    }
+};
+
+module.exports = function (left, operator, right, options) {
+    var O = OPERATORS[operator];
+    if (!O) {
+        throw new TypeError('"when" operator is undefined');
+    }
+    var content = O(left, right) ? options.fn(this) : options.inverse(this);
+    return content;
+};
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Handlebars = __webpack_require__(1);
 function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj); }
 module.exports = (Handlebars["default"] || Handlebars).template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<header class=\"mdl-layout__header mdl-layout__header--transparent\">\n    <div class=\"mdl-layout__header-row\">\n        <!-- Title -->\n        <span class=\"mdl-layout-title\">Title</span>\n        <!-- Add spacer, to align navigation to the right -->\n        <div class=\"mdl-layout-spacer\"></div>\n        <!-- Navigation -->\n        <nav class=\"mdl-navigation\" data-view=\"list\">\n        </nav>\n    </div>\n</header>";
+    return "<header class=\"mdl-layout__header mdl-layout__header--transparent\">\r\n    <div class=\"mdl-layout__header-row\">\r\n        <!-- Title -->\r\n        <span class=\"mdl-layout-title\">Title</span>\r\n        <!-- Add spacer, to align navigation to the right -->\r\n        <div class=\"mdl-layout-spacer\"></div>\r\n        <!-- Navigation -->\r\n        <nav class=\"mdl-navigation\" data-view=\"list\">\r\n        </nav>\r\n    </div>\r\n</header>";
 },"useData":true});
 
 /***/ }),
-/* 11 */
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Handlebars = __webpack_require__(1);
+function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj); }
+module.exports = (Handlebars["default"] || Handlebars).template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "\r\n<main class=\"mdl-layout__content\">\r\n    <button data-btn=\"fruit\" class=\"mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent\">\r\n        과일\r\n    </button>\r\n    <button data-btn=\"weather\" class=\"mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent\">\r\n        날씨\r\n    </button>\r\n    <div data-view=\"fruits\" style=\"display:none\"></div>\r\n    <div data-view=\"weather\" style=\"display:none\"></div>\r\n</main>";
+},"useData":true});
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Handlebars = __webpack_require__(1);
+function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj); }
+module.exports = (Handlebars["default"] || Handlebars).template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"mdl-layout__drawer\">\r\n    <span class=\"mdl-layout-title\">Title</span>\r\n    <nav class=\"mdl-navigation\" data-view=\"list\">\r\n    </nav>\r\n</div>";
+},"useData":true});
+
+/***/ }),
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10737,18 +10878,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
 
-var _handlebarsBase = __webpack_require__(3);
+var _handlebarsBase = __webpack_require__(5);
 
 var base = _interopRequireWildcard(_handlebarsBase);
 
 // Each of these augment the Handlebars object. No need to setup here.
 // (This is done to easily share code between commonjs and browse envs)
 
-var _handlebarsSafeString = __webpack_require__(25);
+var _handlebarsSafeString = __webpack_require__(32);
 
 var _handlebarsSafeString2 = _interopRequireDefault(_handlebarsSafeString);
 
-var _handlebarsException = __webpack_require__(1);
+var _handlebarsException = __webpack_require__(2);
 
 var _handlebarsException2 = _interopRequireDefault(_handlebarsException);
 
@@ -10756,11 +10897,11 @@ var _handlebarsUtils = __webpack_require__(0);
 
 var Utils = _interopRequireWildcard(_handlebarsUtils);
 
-var _handlebarsRuntime = __webpack_require__(24);
+var _handlebarsRuntime = __webpack_require__(31);
 
 var runtime = _interopRequireWildcard(_handlebarsRuntime);
 
-var _handlebarsNoConflict = __webpack_require__(23);
+var _handlebarsNoConflict = __webpack_require__(30);
 
 var _handlebarsNoConflict2 = _interopRequireDefault(_handlebarsNoConflict);
 
@@ -10795,7 +10936,7 @@ module.exports = exports['default'];
 
 
 /***/ }),
-/* 12 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10807,7 +10948,7 @@ exports.registerDefaultDecorators = registerDefaultDecorators;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var _decoratorsInline = __webpack_require__(13);
+var _decoratorsInline = __webpack_require__(20);
 
 var _decoratorsInline2 = _interopRequireDefault(_decoratorsInline);
 
@@ -10818,7 +10959,7 @@ function registerDefaultDecorators(instance) {
 
 
 /***/ }),
-/* 13 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10854,7 +10995,7 @@ module.exports = exports['default'];
 
 
 /***/ }),
-/* 14 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10866,31 +11007,31 @@ exports.registerDefaultHelpers = registerDefaultHelpers;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var _helpersBlockHelperMissing = __webpack_require__(15);
+var _helpersBlockHelperMissing = __webpack_require__(22);
 
 var _helpersBlockHelperMissing2 = _interopRequireDefault(_helpersBlockHelperMissing);
 
-var _helpersEach = __webpack_require__(16);
+var _helpersEach = __webpack_require__(23);
 
 var _helpersEach2 = _interopRequireDefault(_helpersEach);
 
-var _helpersHelperMissing = __webpack_require__(17);
+var _helpersHelperMissing = __webpack_require__(24);
 
 var _helpersHelperMissing2 = _interopRequireDefault(_helpersHelperMissing);
 
-var _helpersIf = __webpack_require__(18);
+var _helpersIf = __webpack_require__(25);
 
 var _helpersIf2 = _interopRequireDefault(_helpersIf);
 
-var _helpersLog = __webpack_require__(19);
+var _helpersLog = __webpack_require__(26);
 
 var _helpersLog2 = _interopRequireDefault(_helpersLog);
 
-var _helpersLookup = __webpack_require__(20);
+var _helpersLookup = __webpack_require__(27);
 
 var _helpersLookup2 = _interopRequireDefault(_helpersLookup);
 
-var _helpersWith = __webpack_require__(21);
+var _helpersWith = __webpack_require__(28);
 
 var _helpersWith2 = _interopRequireDefault(_helpersWith);
 
@@ -10907,7 +11048,7 @@ function registerDefaultHelpers(instance) {
 
 
 /***/ }),
-/* 15 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10953,7 +11094,7 @@ module.exports = exports['default'];
 
 
 /***/ }),
-/* 16 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10966,7 +11107,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 var _utils = __webpack_require__(0);
 
-var _exception = __webpack_require__(1);
+var _exception = __webpack_require__(2);
 
 var _exception2 = _interopRequireDefault(_exception);
 
@@ -11054,7 +11195,7 @@ module.exports = exports['default'];
 
 
 /***/ }),
-/* 17 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11065,7 +11206,7 @@ exports.__esModule = true;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var _exception = __webpack_require__(1);
+var _exception = __webpack_require__(2);
 
 var _exception2 = _interopRequireDefault(_exception);
 
@@ -11086,7 +11227,7 @@ module.exports = exports['default'];
 
 
 /***/ }),
-/* 18 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11122,7 +11263,7 @@ module.exports = exports['default'];
 
 
 /***/ }),
-/* 19 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11155,7 +11296,7 @@ module.exports = exports['default'];
 
 
 /***/ }),
-/* 20 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11174,7 +11315,7 @@ module.exports = exports['default'];
 
 
 /***/ }),
-/* 21 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11214,7 +11355,7 @@ module.exports = exports['default'];
 
 
 /***/ }),
-/* 22 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11268,7 +11409,7 @@ module.exports = exports['default'];
 
 
 /***/ }),
-/* 23 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11293,10 +11434,10 @@ exports['default'] = function (Handlebars) {
 module.exports = exports['default'];
 //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uL2xpYi9oYW5kbGViYXJzL25vLWNvbmZsaWN0LmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7O3FCQUNlLFVBQVMsVUFBVSxFQUFFOztBQUVsQyxNQUFJLElBQUksR0FBRyxPQUFPLE1BQU0sS0FBSyxXQUFXLEdBQUcsTUFBTSxHQUFHLE1BQU07TUFDdEQsV0FBVyxHQUFHLElBQUksQ0FBQyxVQUFVLENBQUM7O0FBRWxDLFlBQVUsQ0FBQyxVQUFVLEdBQUcsWUFBVztBQUNqQyxRQUFJLElBQUksQ0FBQyxVQUFVLEtBQUssVUFBVSxFQUFFO0FBQ2xDLFVBQUksQ0FBQyxVQUFVLEdBQUcsV0FBVyxDQUFDO0tBQy9CO0FBQ0QsV0FBTyxVQUFVLENBQUM7R0FDbkIsQ0FBQztDQUNIIiwiZmlsZSI6Im5vLWNvbmZsaWN0LmpzIiwic291cmNlc0NvbnRlbnQiOlsiLyogZ2xvYmFsIHdpbmRvdyAqL1xuZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24oSGFuZGxlYmFycykge1xuICAvKiBpc3RhbmJ1bCBpZ25vcmUgbmV4dCAqL1xuICBsZXQgcm9vdCA9IHR5cGVvZiBnbG9iYWwgIT09ICd1bmRlZmluZWQnID8gZ2xvYmFsIDogd2luZG93LFxuICAgICAgJEhhbmRsZWJhcnMgPSByb290LkhhbmRsZWJhcnM7XG4gIC8qIGlzdGFuYnVsIGlnbm9yZSBuZXh0ICovXG4gIEhhbmRsZWJhcnMubm9Db25mbGljdCA9IGZ1bmN0aW9uKCkge1xuICAgIGlmIChyb290LkhhbmRsZWJhcnMgPT09IEhhbmRsZWJhcnMpIHtcbiAgICAgIHJvb3QuSGFuZGxlYmFycyA9ICRIYW5kbGViYXJzO1xuICAgIH1cbiAgICByZXR1cm4gSGFuZGxlYmFycztcbiAgfTtcbn1cbiJdfQ==
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(33)))
 
 /***/ }),
-/* 24 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11321,11 +11462,11 @@ var _utils = __webpack_require__(0);
 
 var Utils = _interopRequireWildcard(_utils);
 
-var _exception = __webpack_require__(1);
+var _exception = __webpack_require__(2);
 
 var _exception2 = _interopRequireDefault(_exception);
 
-var _base = __webpack_require__(3);
+var _base = __webpack_require__(5);
 
 function checkRevision(compilerInfo) {
   var compilerRevision = compilerInfo && compilerInfo[0] || 1,
@@ -11600,7 +11741,7 @@ function executeDecorators(fn, prog, container, depths, data, blockParams) {
 
 
 /***/ }),
-/* 25 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11622,7 +11763,7 @@ module.exports = exports['default'];
 
 
 /***/ }),
-/* 26 */
+/* 33 */
 /***/ (function(module, exports) {
 
 var g;
@@ -11649,88 +11790,65 @@ module.exports = g;
 
 
 /***/ }),
-/* 27 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _weatherlist = __webpack_require__(8);
-
-var _weatherlist2 = _interopRequireDefault(_weatherlist);
-
-var _tdlist = __webpack_require__(7);
-
-var _tdlist2 = _interopRequireDefault(_tdlist);
-
-var _list = __webpack_require__(5);
+var _list = __webpack_require__(8);
 
 var _list2 = _interopRequireDefault(_list);
 
-var _main = __webpack_require__(6);
+var _main = __webpack_require__(9);
 
 var _main2 = _interopRequireDefault(_main);
 
-var _ajax = __webpack_require__(4);
+var _ajax = __webpack_require__(6);
 
 var _ajax2 = _interopRequireDefault(_ajax);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var $ = __webpack_require__(9);
+var $ = __webpack_require__(11);
+var list = __webpack_require__(12);
+var tplFruits = __webpack_require__(7);
+var tplWeather = __webpack_require__(10);
 
 //showTable;
 $('#root').html((0, _main2.default)({}));
-
-var list = [{
-    href: 'http://www.naver.com',
-    name: 'naver'
-}, {
-    href: 'http://www.daum.net',
-    name: 'daum'
-}];
 
 $('[data-view="list"]').html((0, _list2.default)({
     list: list
 }));
 
-// data ajax
-// ajax 순서를 클릭했을때 탔어야 했는데 잘못한것 같은데...
-(0, _ajax2.default)('../data.json', function (response) {
-    var data = response.fruits;
-    $('#btn_table_show').on('click', function () {
-        $('#weather_table').css('display', 'none');
-        $('#fruit_table').toggle();
-
-        $('[data-view="tdlist"]').html((0, _tdlist2.default)({
-            tdList: data
+$('[data-btn="fruit"]').on('click', function () {
+    (0, _ajax2.default)('../data.json', function (response) {
+        var data = response.fruits;
+        $('[data-view="fruits"]').toggle();
+        $('[data-view="fruits"]').html(tplFruits({
+            fruits: data,
+            total: data.map(function (v) {
+                return v.price * v.quantity;
+            }).reduce(function (prev, curr) {
+                return prev + curr;
+            }, 0)
         }));
-
-        var price = data.map(function (item) {
-            return item.price;
-        }).reduce(function (preV, nextV) {
-            return preV + nextV;
-        });
-        // 자바스크립트로 회귀한다.
-        $('tfoot').html('<tr><td>합계</td><td colspan="2">' + price + '</td></tr>');
     });
 });
 
 var weatherUrl = 'http://api.openweathermap.org/data/2.5/forecast/daily?q=seoul&mode=json&units=metric&cnt=7&apikey=8d554a626fc5d01d77812b612a6de257';
 
-document.getElementById('btn_weather_show').addEventListener('click', function () {
+$('[data-btn="weather"]').on('click', function () {
     (0, _ajax2.default)(weatherUrl, function (response) {
         var data = response.list;
-        console.log(data);
         data = data.map(function (item) {
-            return { dt: new Date(item.dt), temp: item.temp.day };
+            return { date: new Date(item.dt), temp: item.temp.day };
         });
-        console.log(data);
-        $('#fruit_table').css('display', 'none');
-        $('#weather_table').toggle();
+        $('[data-view="weather"]').toggle();
 
-        $('[data-view="weatherlist"]').html((0, _weatherlist2.default)({
-            weatherList: data
+        $('[data-view="weather"]').html(tplWeather({
+            weather: data
         }));
     });
 });
