@@ -4,5 +4,5 @@ module.exports = function() {
         'usa' : ' dollar',
         'jpn' : ' yen'
     }
-    return unit.usa;
+    return unit.usa
 }
