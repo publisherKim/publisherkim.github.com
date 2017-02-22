@@ -10738,7 +10738,9 @@ Component.prototype.test = function () {
 Component.prototype.init = function (userOptions) {
     var dftOptions = {
         url: 'https://raw.githubusercontent.com/suhokim2/suhokim2.github.com/master/data.json',
-        $selector: $('[data-view="fruits"]')
+        $selector: $('[data-view="fruits"]'),
+        attachTable: tplFruits,
+        dataName: fruits
     };
     this.settings = $.extend({}, dftOptions, userOptions || {});
 };
@@ -10748,7 +10750,7 @@ Component.prototype.show = function (userOptions) {
     console.log(options.url);
     console.log(options.$selector);
     (0, _ajax2.default)(options.url, function (data) {
-        options.$selector.html(tplFruits({
+        options.$selector.html(options.attachTable({
             fruits: data.fruits,
             total: data.fruits.map(function (v) {
                 return v.price * v.quantity;
@@ -10760,6 +10762,8 @@ Component.prototype.show = function (userOptions) {
     });
 };
 var tableDrawer = new Component();
+// ajax 후에 html 로직부문만 바꺼치기 할수있게 짜면 될것 같은디... tobecontinue...
+
 
 exports.default = tableDrawer;
 
@@ -11911,7 +11915,6 @@ $('[data-btn="fruit"]').on('click', function () {
 var weatherUrl = 'http://api.openweathermap.org/data/2.5/forecast/daily?q=seoul&mode=json&units=metric&cnt=7&apikey=8d554a626fc5d01d77812b612a6de257';
 $('[data-btn="weather"]').on('click', function () {
     _Component2.default.show({
-        url: weatherUrl,
         $selector: $('[data-view="weather"]')
     });
 });

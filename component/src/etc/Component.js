@@ -22,7 +22,9 @@ Component.prototype.test = function() {
 Component.prototype.init = function(userOptions) {
     let dftOptions = {
         url: 'https://raw.githubusercontent.com/suhokim2/suhokim2.github.com/master/data.json',
-        $selector: $('[data-view="fruits"]')
+        $selector: $('[data-view="fruits"]'),
+        attachTable: tplFruits,
+        dataName: fruits
     }
     this.settings = $.extend({}, dftOptions, userOptions || {});
 };
@@ -32,7 +34,7 @@ Component.prototype.show = function(userOptions) {
     console.log(options.url);
     console.log(options.$selector);
     ajax(options.url, data => {
-        options.$selector.html(tplFruits({
+        options.$selector.html(options.attachTable({
             fruits: data.fruits,
             total: data.fruits.map(v => {
                 return v.price * v.quantity;
@@ -42,7 +44,7 @@ Component.prototype.show = function(userOptions) {
     });
 };
 let tableDrawer = new Component();
-
+// ajax 후에 html 로직부문만 바꺼치기 할수있게 짜면 될것 같은디... tobecontinue...
 
 
 
