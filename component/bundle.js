@@ -10793,10 +10793,6 @@ Component.prototype.jqStyleShow = function (userOptions) {
         options.$selector.toggle();
     });
 };
-Component.prototype.show = function (userOptions) {};
-Component.prototype.hide = function (userOptions) {};
-Component.prototype.toggle = function (userOptions) {};
-
 var tableDrawer = new Component();
 
 exports.default = tableDrawer;
@@ -10832,6 +10828,10 @@ var Component2 = function () {
 
         this.context = context;
         this.isShow = false;
+        this.$fruitSelector = $('[data-view="fruits"]');
+        this.$weatherSelector = $('[data-view="weather"]');
+        this.repeatFruits = tplFruits;
+        this.repeatWeather = tplWeather;
     }
 
     _createClass(Component2, [{
@@ -10871,20 +10871,23 @@ var Component2 = function () {
     }, {
         key: 'show',
         value: function show() {
-            if (this.context === 'fruit') {
-                return this.fruit();
-            }
-            this.weather();
+            this.context === 'fruit' ? this.fruit() : this.weather();
+            // if (this.context === 'fruit') {
+            //     return this.fruit();
+            // }
+            // this.weather();
         }
     }, {
         key: 'hide',
         value: function hide() {
             this.isShow = false;
-            if (this.context === 'fruit') {
-                $('[data-view="fruits"]').html('');
-                return 'merong';
-            }
-            $('[data-view="weather"]').html('');
+            (this.context === 'fruit' ? this.$fruitSelector : this.$weatherSelector)['html']('');
+            //this.context === 'fruit' ? $('[data-view="fruits"]').html('') : $('[data-view="weather"]').html('');
+            // if (this.context === 'fruit') {
+            //     $('[data-view="fruits"]').html('');
+            //     return 'merong';
+            // }
+            // $('[data-view="weather"]').html('');
         }
     }, {
         key: 'drawer',

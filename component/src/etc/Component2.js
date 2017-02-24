@@ -5,8 +5,12 @@ const tplWeather = require('../templates/weather/weather.hbs');
 
 class Component2 {
     constructor(context) {
-        this.context = context
+        this.context = context;
         this.isShow = false;
+        this.$fruitSelector = $('[data-view="fruits"]');
+        this.$weatherSelector = $('[data-view="weather"]');
+        this.repeatFruits = tplFruits;
+        this.repeatWeather = tplWeather;
     }
     fruit() {
         ajax('https://raw.githubusercontent.com/suhokim2/suhokim2.github.com/master/data.json', data => {
@@ -33,18 +37,21 @@ class Component2 {
         });
     }
     show() {
-        if (this.context === 'fruit') {
-            return this.fruit();
-        }
-        this.weather();
+        this.context === 'fruit' ? this.fruit() : this.weather();
+        // if (this.context === 'fruit') {
+        //     return this.fruit();
+        // }
+        // this.weather();
     }
     hide() {
         this.isShow = false;
-        if (this.context === 'fruit') {
-            $('[data-view="fruits"]').html('');
-            return 'merong';
-        }
-        $('[data-view="weather"]').html('');
+        (this.context === 'fruit' ? this.$fruitSelector : this.$weatherSelector)['html']('');
+        //this.context === 'fruit' ? $('[data-view="fruits"]').html('') : $('[data-view="weather"]').html('');
+        // if (this.context === 'fruit') {
+        //     $('[data-view="fruits"]').html('');
+        //     return 'merong';
+        // }
+        // $('[data-view="weather"]').html('');
     }
     drawer() {
         this[!this.isShow ? 'show' : 'hide']();
