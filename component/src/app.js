@@ -14,7 +14,7 @@ $('#root').html(tplMain({}));
 $('[data-view="list"]').html(tplList({
     list: list
 }));
-const fruitComponent = new Component2();
+const fruitComponent = new Component2('fruit');
 const weatherComponent = new Component2();
 $('[data-btn="fruit"]').on('click', function() {
     fruitComponent.drawer();
