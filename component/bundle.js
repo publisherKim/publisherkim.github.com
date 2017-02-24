@@ -10835,27 +10835,29 @@ var Component2 = function () {
     }
 
     _createClass(Component2, [{
-        key: 'show',
-        value: function show() {
+        key: 'fruit',
+        value: function fruit() {
             var _this = this;
 
-            console.log(this);
-            if (this.context === 'fruit') {
-                (0, _ajax2.default)('https://raw.githubusercontent.com/suhokim2/suhokim2.github.com/master/data.json', function (data) {
-                    _this.isShow = true;
-                    $('[data-view="fruits"]').html(tplFruits({
-                        fruits: data.fruits,
-                        total: data.fruits.map(function (v) {
-                            return v.price * v.quantity;
-                        }).reduce(function (prev, curr) {
-                            return prev + curr;
-                        }, 0)
-                    }));
-                });
-                return 'merong';
-            }
-            (0, _ajax2.default)('http://api.openweathermap.org/data/2.5/forecast/daily?q=seoul&mode=json&units=metric&cnt=7&apikey=8d554a626fc5d01d77812b612a6de257', function (data) {
+            (0, _ajax2.default)('https://raw.githubusercontent.com/suhokim2/suhokim2.github.com/master/data.json', function (data) {
                 _this.isShow = true;
+                $('[data-view="fruits"]').html(tplFruits({
+                    fruits: data.fruits,
+                    total: data.fruits.map(function (v) {
+                        return v.price * v.quantity;
+                    }).reduce(function (prev, curr) {
+                        return prev + curr;
+                    }, 0)
+                }));
+            });
+        }
+    }, {
+        key: 'weather',
+        value: function weather() {
+            var _this2 = this;
+
+            (0, _ajax2.default)('http://api.openweathermap.org/data/2.5/forecast/daily?q=seoul&mode=json&units=metric&cnt=7&apikey=8d554a626fc5d01d77812b612a6de257', function (data) {
+                _this2.isShow = true;
                 $('[data-view="weather"]').html(tplWeather({
                     weather: data.list.map(function (v) {
                         return {
@@ -10865,6 +10867,14 @@ var Component2 = function () {
                     })
                 }));
             });
+        }
+    }, {
+        key: 'show',
+        value: function show() {
+            if (this.context === 'fruit') {
+                return this.fruit();
+            }
+            this.weather();
         }
     }, {
         key: 'hide',

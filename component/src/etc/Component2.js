@@ -8,20 +8,18 @@ class Component2 {
         this.context = context
         this.isShow = false;
     }
-    show() {
-        console.log(this);
-        if (this.context === 'fruit') {
-            ajax('https://raw.githubusercontent.com/suhokim2/suhokim2.github.com/master/data.json', data => {
-                this.isShow = true;
-                $('[data-view="fruits"]').html(tplFruits({
-                    fruits: data.fruits,
-                    total: data.fruits.map(v => {
-                        return v.price * v.quantity;
-                    }).reduce((prev, curr) => prev + curr, 0)
-                }));
-            });
-            return 'merong';
-        }
+    fruit() {
+        ajax('https://raw.githubusercontent.com/suhokim2/suhokim2.github.com/master/data.json', data => {
+            this.isShow = true;
+            $('[data-view="fruits"]').html(tplFruits({
+                fruits: data.fruits,
+                total: data.fruits.map(v => {
+                    return v.price * v.quantity;
+                }).reduce((prev, curr) => prev + curr, 0)
+            }));
+        });
+    }
+    weather() {
         ajax('http://api.openweathermap.org/data/2.5/forecast/daily?q=seoul&mode=json&units=metric&cnt=7&apikey=8d554a626fc5d01d77812b612a6de257', data => {
             this.isShow = true;
             $('[data-view="weather"]').html(tplWeather({
@@ -33,6 +31,12 @@ class Component2 {
                 })
             }));
         });
+    }
+    show() {
+        if (this.context === 'fruit') {
+            return this.fruit();
+        }
+        this.weather();
     }
     hide() {
         this.isShow = false;
