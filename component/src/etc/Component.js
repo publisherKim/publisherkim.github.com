@@ -54,6 +54,16 @@ Component.prototype.jqStyleShow = function(userOptions) {
     });
 
 };
+Component.prototype.show = function(userOptions) {
+
+};
+Component.prototype.hide = function(userOptions) {
+
+};
+Component.prototype.toggle = function(userOptions) {
+
+};
+
 let tableDrawer = new Component();
 
 
