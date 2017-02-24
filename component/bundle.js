@@ -10739,31 +10739,39 @@ Component.prototype.init = function (userOptions) {
     var dftOptions = {
         url: 'https://raw.githubusercontent.com/suhokim2/suhokim2.github.com/master/data.json',
         $selector: $('[data-view="fruits"]'),
-        attachTable: tplFruits,
-        dataName: fruits
+        attachTable: tplFruits
     };
     this.settings = $.extend({}, dftOptions, userOptions || {});
 };
-Component.prototype.show = function (userOptions) {
+Component.prototype.jqStyleShow = function (userOptions) {
     this.init(userOptions);
     var options = this.settings;
-    console.log(options.url);
-    console.log(options.$selector);
-    (0, _ajax2.default)(options.url, function (data) {
+    if (options.$selector.hasClass('fruits')) {
+        (0, _ajax2.default)(options.url, function (data) {
+            options.$selector.html(options.attachTable({
+                fruits: data.fruits,
+                total: data.fruits.map(function (v) {
+                    return v.price * v.quantity;
+                }).reduce(function (prev, curr) {
+                    return prev + curr;
+                }, 0)
+            }));
+            options.$selector.toggle();
+        });
+        return 'merong';
+    }
+    (0, _ajax2.default)(options.url, function (response) {
+        var data = response.list;
+        data = data.map(function (item) {
+            return { date: new Date(item.dt), temp: item.temp.day };
+        });
         options.$selector.html(options.attachTable({
-            fruits: data.fruits,
-            total: data.fruits.map(function (v) {
-                return v.price * v.quantity;
-            }).reduce(function (prev, curr) {
-                return prev + curr;
-            }, 0)
+            weather: data
         }));
         options.$selector.toggle();
     });
 };
 var tableDrawer = new Component();
-// ajax 후에 html 로직부문만 바꺼치기 할수있게 짜면 될것 같은디... tobecontinue...
-
 
 exports.default = tableDrawer;
 
@@ -11894,9 +11902,16 @@ $('[data-view="list"]').html((0, _list2.default)({
 
 console.log(_Component2.default);
 $('[data-btn="fruit"]').on('click', function () {
-    _Component2.default.test();
-    _Component2.default.show({
+    _Component2.default.jqStyleShow({
         url: '../../data.json'
+    });
+});
+var weatherUrl = 'http://api.openweathermap.org/data/2.5/forecast/daily?q=seoul&mode=json&units=metric&cnt=7&apikey=8d554a626fc5d01d77812b612a6de257';
+$('[data-btn="weather"]').on('click', function () {
+    _Component2.default.jqStyleShow({
+        $selector: $('[data-view="weather"]'),
+        url: weatherUrl,
+        attachTable: tplWeather
     });
 });
 // $('[data-btn="fruit"]').on('click', function() {
@@ -11911,13 +11926,6 @@ $('[data-btn="fruit"]').on('click', function () {
 //         }));
 //     });
 // });
-
-var weatherUrl = 'http://api.openweathermap.org/data/2.5/forecast/daily?q=seoul&mode=json&units=metric&cnt=7&apikey=8d554a626fc5d01d77812b612a6de257';
-$('[data-btn="weather"]').on('click', function () {
-    _Component2.default.show({
-        $selector: $('[data-view="weather"]')
-    });
-});
 // $('[data-btn="weather"]').on('click', () => {
 //     ajax(weatherUrl, response => {
 //         let data = response.list;
@@ -11925,7 +11933,6 @@ $('[data-btn="weather"]').on('click', function () {
 //             return { date: new Date(item.dt), temp: item.temp.day };
 //         });
 //         $('[data-view="weather"]').toggle();
-
 //         $('[data-view="weather"]').html(tplWeather({
 //             weather: data
 //         }));
