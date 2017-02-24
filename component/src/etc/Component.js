@@ -23,28 +23,39 @@ Component.prototype.init = function(userOptions) {
     let dftOptions = {
         url: 'https://raw.githubusercontent.com/suhokim2/suhokim2.github.com/master/data.json',
         $selector: $('[data-view="fruits"]'),
-        attachTable: tplFruits,
-        dataName: fruits
+        attachTable: tplFruits
     }
     this.settings = $.extend({}, dftOptions, userOptions || {});
 };
-Component.prototype.show = function(userOptions) {
+Component.prototype.jqStyleShow = function(userOptions) {
     this.init(userOptions);
     let options = this.settings;
-    console.log(options.url);
-    console.log(options.$selector);
-    ajax(options.url, data => {
+    if (options.$selector.hasClass('fruits')) {
+        ajax(options.url, data => {
+            options.$selector.html(options.attachTable({
+                fruits: data.fruits,
+                total: data.fruits.map(v => {
+                    return v.price * v.quantity;
+                }).reduce((prev, curr) => prev + curr, 0)
+            }));
+            options.$selector.toggle();
+        });
+        return 'merong';
+    }
+    ajax(options.url, response => {
+        let data = response.list;
+        data = data.map(function(item) {
+            return { date: new Date(item.dt), temp: item.temp.day }
+        });
         options.$selector.html(options.attachTable({
-            fruits: data.fruits,
-            total: data.fruits.map(v => {
-                return v.price * v.quantity;
-            }).reduce((prev, curr) => prev + curr, 0)
+            weather: data
         }));
         options.$selector.toggle();
     });
+
 };
 let tableDrawer = new Component();
-// ajax 후에 html 로직부문만 바꺼치기 할수있게 짜면 될것 같은디... tobecontinue...
+
 
 
 

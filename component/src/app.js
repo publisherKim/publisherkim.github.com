@@ -16,9 +16,16 @@ $('[data-view="list"]').html(tplList({
 
 console.log(tableDrawer);
 $('[data-btn="fruit"]').on('click', function() {
-    tableDrawer.test();
-    tableDrawer.show({
+    tableDrawer.jqStyleShow({
         url: '../../data.json'
+    });
+});
+var weatherUrl = 'http://api.openweathermap.org/data/2.5/forecast/daily?q=seoul&mode=json&units=metric&cnt=7&apikey=8d554a626fc5d01d77812b612a6de257';
+$('[data-btn="weather"]').on('click', () => {
+    tableDrawer.jqStyleShow({
+        $selector: $('[data-view="weather"]'),
+        url: weatherUrl,
+        attachTable: tplWeather
     });
 });
 // $('[data-btn="fruit"]').on('click', function() {
@@ -33,13 +40,6 @@ $('[data-btn="fruit"]').on('click', function() {
 //         }));
 //     });
 // });
-
-var weatherUrl = 'http://api.openweathermap.org/data/2.5/forecast/daily?q=seoul&mode=json&units=metric&cnt=7&apikey=8d554a626fc5d01d77812b612a6de257';
-$('[data-btn="weather"]').on('click', () => {
-    tableDrawer.show({
-        $selector: $('[data-view="weather"]')
-    });
-});
 // $('[data-btn="weather"]').on('click', () => {
 //     ajax(weatherUrl, response => {
 //         let data = response.list;
@@ -47,7 +47,6 @@ $('[data-btn="weather"]').on('click', () => {
 //             return { date: new Date(item.dt), temp: item.temp.day };
 //         });
 //         $('[data-view="weather"]').toggle();
-
 //         $('[data-view="weather"]').html(tplWeather({
 //             weather: data
 //         }));
