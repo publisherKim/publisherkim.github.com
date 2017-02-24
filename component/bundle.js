@@ -10827,9 +10827,10 @@ var tplFruits = __webpack_require__(4);
 var tplWeather = __webpack_require__(6);
 
 var Component2 = function () {
-    function Component2() {
+    function Component2(context) {
         _classCallCheck(this, Component2);
 
+        this.context = context;
         this.isShow = false;
     }
 
@@ -10838,17 +10839,21 @@ var Component2 = function () {
         value: function show() {
             var _this = this;
 
-            (0, _ajax2.default)('https://raw.githubusercontent.com/suhokim2/suhokim2.github.com/master/data.json', function (data) {
-                _this.isShow = true;
-                $('[data-view="fruits"]').html(tplFruits({
-                    fruits: data.fruits,
-                    total: data.fruits.map(function (v) {
-                        return v.price * v.quantity;
-                    }).reduce(function (prev, curr) {
-                        return prev + curr;
-                    }, 0)
-                }));
-            });
+            console.log(this);
+            if (this.context === 'fruit') {
+                (0, _ajax2.default)('https://raw.githubusercontent.com/suhokim2/suhokim2.github.com/master/data.json', function (data) {
+                    _this.isShow = true;
+                    $('[data-view="fruits"]').html(tplFruits({
+                        fruits: data.fruits,
+                        total: data.fruits.map(function (v) {
+                            return v.price * v.quantity;
+                        }).reduce(function (prev, curr) {
+                            return prev + curr;
+                        }, 0)
+                    }));
+                });
+                return 'merong';
+            }
             (0, _ajax2.default)('http://api.openweathermap.org/data/2.5/forecast/daily?q=seoul&mode=json&units=metric&cnt=7&apikey=8d554a626fc5d01d77812b612a6de257', function (data) {
                 _this.isShow = true;
                 $('[data-view="weather"]').html(tplWeather({
@@ -10865,7 +10870,10 @@ var Component2 = function () {
         key: 'hide',
         value: function hide() {
             this.isShow = false;
-            $('[data-view="fruits"]').html('');
+            if (this.context === 'fruit') {
+                $('[data-view="fruits"]').html('');
+                return 'merong';
+            }
             $('[data-view="weather"]').html('');
         }
     }, {
@@ -11986,7 +11994,7 @@ $('#root').html((0, _main2.default)({}));
 $('[data-view="list"]').html((0, _list2.default)({
     list: list
 }));
-var fruitComponent = new _Component4.default();
+var fruitComponent = new _Component4.default('fruit');
 var weatherComponent = new _Component4.default();
 $('[data-btn="fruit"]').on('click', function () {
     fruitComponent.drawer();
