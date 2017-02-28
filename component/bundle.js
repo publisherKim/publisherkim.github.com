@@ -10871,6 +10871,7 @@ var Component2 = function () {
             (0, _ajax2.default)(url, function (data) {
                 _this.isShow = true;
                 // 이게 과연 가독성이 좋다고 볼수 있을까 ? 저안에서 중복되는건 .html(tplFruits).. 변하는건 ({이안의 로직...  줄일수 있다고 가정하자.. 머리는 한계인가...})
+                // $fruitSelector은 어차피 하드코딩인데 불필요하게 치환함... 이미 로직을 분리한채로 옵션을 설정해 버렸음... 객체 형태로 받아서 처리해야 하는건가 ApiUrl처럼 혹은 그냥 한덩어리로 볼것이냐..
                 _this.context === 'fruit' ? _this.$fruitSelector.html(tplFruits({
                     fruits: data.fruits,
                     total: data.fruits.map(function (v) {
