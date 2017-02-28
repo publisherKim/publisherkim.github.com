@@ -38,7 +38,7 @@ class Component2 {
         let url = this.context === 'fruit' ? this.ApiUrl.fruit : this.ApiUrl.weather;
         ajax(url, data => {
             this.isShow = true;
-            // 이게 과연 과독성이 좋다고 볼수 있을까 ?
+            // 이게 과연 가독성이 좋다고 볼수 있을까 ? 저안에서 중복되는건 .html(tplFruits).. 변하는건 ({이안의 로직...  줄일수 있다고 가정하자.. 머리는 한계인가...})
             this.context === 'fruit' ? this.$fruitSelector.html(tplFruits({
                 fruits: data.fruits,
                 total: data.fruits.map(v => {
