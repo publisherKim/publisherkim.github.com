@@ -38,7 +38,13 @@ class Component2 {
         let url = this.context === 'fruit' ? this.ApiUrl.fruit : this.ApiUrl.weather;
         ajax(url, data => {
             this.isShow = true;
-            this.context === 'fruit' ? this.fruit(data) : this.weather(data);
+            // 이게 과연 과독성이 좋다고 볼수 있을까 ?
+            this.context === 'fruit' ? this.$fruitSelector.html(tplFruits({
+                fruits: data.fruits,
+                total: data.fruits.map(v => {
+                    return v.price * v.quantity;
+                }).reduce((prev, curr) => prev + curr, 0)
+            })) : this.weather(data);
         });
 
     }

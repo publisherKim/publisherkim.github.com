@@ -10870,7 +10870,15 @@ var Component2 = function () {
             var url = this.context === 'fruit' ? this.ApiUrl.fruit : this.ApiUrl.weather;
             (0, _ajax2.default)(url, function (data) {
                 _this.isShow = true;
-                _this.context === 'fruit' ? _this.fruit(data) : _this.weather(data);
+                // 이게 과연 과독성이 좋다고 볼수 있을까 ?
+                _this.context === 'fruit' ? _this.$fruitSelector.html(tplFruits({
+                    fruits: data.fruits,
+                    total: data.fruits.map(function (v) {
+                        return v.price * v.quantity;
+                    }).reduce(function (prev, curr) {
+                        return prev + curr;
+                    }, 0)
+                })) : _this.weather(data);
             });
         }
     }, {
