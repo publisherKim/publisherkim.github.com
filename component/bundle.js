@@ -10832,62 +10832,52 @@ var Component2 = function () {
         this.$weatherSelector = $('[data-view="weather"]');
         this.repeatFruits = tplFruits;
         this.repeatWeather = tplWeather;
+        this.ApiUrl = {
+            fruit: '../data.json',
+            weather: 'http://api.openweathermap.org/data/2.5/forecast/daily?q=seoul&mode=json&units=metric&cnt=7&apikey=8d554a626fc5d01d77812b612a6de257'
+        };
     }
 
     _createClass(Component2, [{
         key: 'fruit',
-        value: function fruit() {
-            var _this = this;
-
-            (0, _ajax2.default)('https://raw.githubusercontent.com/suhokim2/suhokim2.github.com/master/data.json', function (data) {
-                _this.isShow = true;
-                $('[data-view="fruits"]').html(tplFruits({
-                    fruits: data.fruits,
-                    total: data.fruits.map(function (v) {
-                        return v.price * v.quantity;
-                    }).reduce(function (prev, curr) {
-                        return prev + curr;
-                    }, 0)
-                }));
-            });
+        value: function fruit(data) {
+            this.$fruitSelector.html(tplFruits({
+                fruits: data.fruits,
+                total: data.fruits.map(function (v) {
+                    return v.price * v.quantity;
+                }).reduce(function (prev, curr) {
+                    return prev + curr;
+                }, 0)
+            }));
         }
     }, {
         key: 'weather',
-        value: function weather() {
-            var _this2 = this;
-
-            (0, _ajax2.default)('http://api.openweathermap.org/data/2.5/forecast/daily?q=seoul&mode=json&units=metric&cnt=7&apikey=8d554a626fc5d01d77812b612a6de257', function (data) {
-                _this2.isShow = true;
-                $('[data-view="weather"]').html(tplWeather({
-                    weather: data.list.map(function (v) {
-                        return {
-                            date: new Date(v.dt * 1000),
-                            temp: v.temp.day
-                        };
-                    })
-                }));
-            });
+        value: function weather(data) {
+            this.$weatherSelector.html(tplWeather({
+                weather: data.list.map(function (v) {
+                    return {
+                        date: new Date(v.dt * 1000),
+                        temp: v.temp.day
+                    };
+                })
+            }));
         }
     }, {
         key: 'show',
         value: function show() {
-            this.context === 'fruit' ? this.fruit() : this.weather();
-            // if (this.context === 'fruit') {
-            //     return this.fruit();
-            // }
-            // this.weather();
+            var _this = this;
+
+            var url = this.context === 'fruit' ? this.ApiUrl.fruit : this.ApiUrl.weather;
+            (0, _ajax2.default)(url, function (data) {
+                _this.isShow = true;
+                _this.context === 'fruit' ? _this.fruit(data) : _this.weather(data);
+            });
         }
     }, {
         key: 'hide',
         value: function hide() {
             this.isShow = false;
             (this.context === 'fruit' ? this.$fruitSelector : this.$weatherSelector)['html']('');
-            //this.context === 'fruit' ? $('[data-view="fruits"]').html('') : $('[data-view="weather"]').html('');
-            // if (this.context === 'fruit') {
-            //     $('[data-view="fruits"]').html('');
-            //     return 'merong';
-            // }
-            // $('[data-view="weather"]').html('');
         }
     }, {
         key: 'drawer',
@@ -12008,7 +11998,7 @@ $('[data-view="list"]').html((0, _list2.default)({
     list: list
 }));
 var fruitComponent = new _Component4.default('fruit');
-var weatherComponent = new _Component4.default();
+var weatherComponent = new _Component4.default('weather');
 $('[data-btn="fruit"]').on('click', function () {
     fruitComponent.drawer();
 });

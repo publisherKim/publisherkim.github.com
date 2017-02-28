@@ -4,19 +4,19 @@ const tplFruits = require('../templates/fruits/fruits.hbs');
 const tplWeather = require('../templates/weather/weather.hbs');
 
 class Component2 {
-    constructor(context, url) {
+    constructor(context) {
         this.context = context;
         this.isShow = false;
         this.$fruitSelector = $('[data-view="fruits"]');
         this.$weatherSelector = $('[data-view="weather"]');
         this.repeatFruits = tplFruits;
         this.repeatWeather = tplWeather;
-        this.url = {
-            fruitUrl: '../data.json',
-            weahtherUrl: 'http://api.openweathermap.org/data/2.5/forecast/daily?q=seoul&mode=json&units=metric&cnt=7&apikey=8d554a626fc5d01d77812b612a6de257'
+        this.ApiUrl = {
+            fruit: '../data.json',
+            weather: 'http://api.openweathermap.org/data/2.5/forecast/daily?q=seoul&mode=json&units=metric&cnt=7&apikey=8d554a626fc5d01d77812b612a6de257'
         }
     }
-    fruit() {
+    fruit(data) {
         this.$fruitSelector.html(tplFruits({
             fruits: data.fruits,
             total: data.fruits.map(v => {
@@ -24,7 +24,7 @@ class Component2 {
             }).reduce((prev, curr) => prev + curr, 0)
         }));
     }
-    weather() {
+    weather(data) {
         this.$weatherSelector.html(tplWeather({
             weather: data.list.map(v => {
                 return {
@@ -35,10 +35,10 @@ class Component2 {
         }));
     }
     show() {
-        this.context === 'fruit' ? this.url = this.url.fruitUrl : this.url = this.weatherUrl;
-        ajax(this.url, data => {
+        let url = this.context === 'fruit' ? this.ApiUrl.fruit : this.ApiUrl.weather;
+        ajax(url, data => {
             this.isShow = true;
-            this.context === 'fruit' ? this.fruit() : this.weather();;
+            this.context === 'fruit' ? this.fruit(data) : this.weather(data);
         });
 
     }
