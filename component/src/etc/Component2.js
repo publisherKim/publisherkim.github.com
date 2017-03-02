@@ -1,51 +1,25 @@
 import ajax from '../util/ajax';
+import fruits from './fruits';
+import weather from './weather';
 const $ = require('jquery');
-const tplFruits = require('../templates/fruits/fruits.hbs');
-const tplWeather = require('../templates/weather/weather.hbs');
 
 class Component2 {
-    constructor(context) {
+    constructor(context, tableSelector) {
         this.context = context;
         this.isShow = false;
         this.$fruitSelector = $('[data-view="fruits"]');
         this.$weatherSelector = $('[data-view="weather"]');
-        this.repeatFruits = tplFruits;
-        this.repeatWeather = tplWeather;
+        this.tableSelector = tableSelector;
         this.ApiUrl = {
             fruit: '../data.json',
             weather: 'http://api.openweathermap.org/data/2.5/forecast/daily?q=seoul&mode=json&units=metric&cnt=7&apikey=8d554a626fc5d01d77812b612a6de257'
         }
     }
-    fruit(data) {
-        this.$fruitSelector.html(tplFruits({
-            fruits: data.fruits,
-            total: data.fruits.map(v => {
-                return v.price * v.quantity;
-            }).reduce((prev, curr) => prev + curr, 0)
-        }));
-    }
-    weather(data) {
-        this.$weatherSelector.html(tplWeather({
-            weather: data.list.map(v => {
-                return {
-                    date: new Date(v.dt * 1000),
-                    temp: v.temp.day
-                };
-            })
-        }));
-    }
     show() {
         let url = this.context === 'fruit' ? this.ApiUrl.fruit : this.ApiUrl.weather;
         ajax(url, data => {
             this.isShow = true;
-            // 이게 과연 가독성이 좋다고 볼수 있을까 ? 저안에서 중복되는건 .html(tplFruits).. 변하는건 ({이안의 로직...  줄일수 있다고 가정하자.. 머리는 한계인가...})
-            // $fruitSelector은 어차피 하드코딩인데 불필요하게 치환함... 이미 로직을 분리한채로 옵션을 설정해 버렸음... 객체 형태로 받아서 처리해야 하는건가 ApiUrl처럼 혹은 그냥 한덩어리로 볼것이냐..
-            this.context === 'fruit' ? this.$fruitSelector.html(tplFruits({
-                fruits: data.fruits,
-                total: data.fruits.map(v => {
-                    return v.price * v.quantity;
-                }).reduce((prev, curr) => prev + curr, 0)
-            })) : this.weather(data);
+            this.context === 'fruit' ? fruits(data) : weather(data);
         });
 
     }

@@ -14,12 +14,12 @@ $('#root').html(tplMain({}));
 $('[data-view="list"]').html(tplList({
     list: list
 }));
-const fruitComponent = new Component2('fruit');
+const fruitComponent = new Component2('fruit', 'a');
 const weatherComponent = new Component2('weather');
 $('[data-btn="fruit"]').on('click', function() {
     fruitComponent.drawer();
 });
-var weatherUrl = 'http://api.openweathermap.org/data/2.5/forecast/daily?q=seoul&mode=json&units=metric&cnt=7&apikey=8d554a626fc5d01d77812b612a6de257';
+
 $('[data-btn="weather"]').on('click', () => {
     weatherComponent.drawer();
 });
