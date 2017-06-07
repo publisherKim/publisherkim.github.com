@@ -76,8 +76,8 @@ var todo = (function() {
 
         init = (function() {
             var initHtml = function() {
-                progressLi = document.querySelector('#todo .progress li');
-                completeLi = document.querySelector('#todo .complete li');
+                progressLi = document.querySelector('#todo .progress > li');
+                completeLi = document.querySelector('#todo .complete > li');
 
                 progressLi.parentNode.removeChild(progressLi);
                 completeLi.parentNode.removeChild(completeLi);
@@ -106,14 +106,26 @@ var todo = (function() {
             };
 
             var renderHtml = function() {
-                console.log('// 각 리스트를 비운다.');
-                document.querySelectorAll('#todo .progress').innerHTML = '';
-                document.querySelectorAll('#todo .complete').innerHTML = '';
-                console.log('// 진행을 채운다.');
-                console.log(tasks);
+                document.querySelector('#todo .progress').innerHTML = '';
+                document.querySelector('#todo .complete').innerHTML = '';
+                document.querySelector('#todo .progress').innerHTML = draw(1);
+
+                function draw(v) {
+                    var result = '';
+                    var complete = ''
+                    for (var i = 0; i < tasks.length; i++) {
+                        if (tasks[i].state === STATE_P) {
+                            result += '<li><p>' + tasks[i].title + '</p><input type="button" value="complete"><input type="button" value="delete"></li>';
+                        } else {
+                            complete += '<li><p>' + tasks[i].title + '</p><input type="button" value="complete"><input type="button" value="delete"></li>';
+                        }
+                    }
+                    return v === 1 ? result : complete;
+                }
                 console.log('// 완료를 채운다.');
+                document.querySelector('#todo .complete').innerHTML = draw(2);
                 console.log('// 인풋 박스를 비운다.');
-                document.querySelector('#todo form input').value = '';
+                //document.querySelector('#todo form input').value = '';
             };
 
             return function() {
@@ -160,5 +172,3 @@ var todo = (function() {
     };
 
 })();
-
-todo.init();
