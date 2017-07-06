@@ -90,14 +90,30 @@ var ImageFinder = (function(global, $) {
             //     page_size: 5
             // }
         }).done(function(data) {
-            callback(data);
+            images = data.images;
+            callback(data.images);
         });
-        return images;
+    }
+    var id = function(id) {
+        var selected_item;
+        images.forEach(function(item) {
+            (id === item.id) && (selected_item = item);
+        });
+
+        return selected_item;
+    }
+
+    var renderImage = function() {
+
     }
 
     function ImageFinder(arg) {
         if(!(this instanceof ImageFinder)) {
             return new ImageFinder(arg);
+        }
+
+        if(!arg) {
+            return this;
         }
 
         if(isType(arg, 'object')) {
@@ -107,7 +123,8 @@ var ImageFinder = (function(global, $) {
     }
     ImageFinder.prototype = {
         constructor : ImageFinder,
-        getImageData : getImageData
+        getImageData : getImageData,
+        id : id
     }
     ImageFinder.include = function(obj) {
         mixin(ImageFinder, obj);
